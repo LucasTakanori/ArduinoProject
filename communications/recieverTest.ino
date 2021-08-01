@@ -22,49 +22,20 @@ void setup() {
 
 void loop() {
   if(HC12.available()){   
-    Serial.println("Recieving data:");
-    StaticJsonDocument<200> doc;
-  DeserializationError error = deserializeJson(doc, HC12);
-  if (error) {
-    Serial.println(F("NO DATA"));
-    //Serial.println(error.c_str());
-    return;
-  } 
-  serializeJsonPretty(doc, Serial);
-  Serial.println("");
-  String test = doc.as<String>(); //Json to String
-  Serial.println(test);
-
-
-
-
-
-
-
-
-    //char input = HC12.read();                // If Arduino's HC12 rx buffer has data    Serial.write(str);
-
-    //Serial.println(input);
-
-    //String myString = String(input);
-    //str = str + input;
-    //Serial.println(str);
-
-    //Serial.println("packet:  " + current_packet);
-
-    // if(input==c){
-
-    //   Serial.print("\nString: ");
-    //   Serial.print(current_packet);
-    //   Serial.println("");
-    //   current_packet = "";
-    // } 
     
-    //Serial.write(HC12.read());              // Send the data to the computer
-    //Serial.write(input);
-    //Serial.print(input);
-    }
-  //if(Serial.available()){                   // If Arduino's computer rx buffer has data
-  //  HC12.write(Serial.read());              // Send that data to serial
-  //}
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, HC12);
+    if (error) {
+      //Serial.println(F("NO DATA"));
+      //Serial.println(error.c_str());
+      return;
+    }else{
+      Serial.println("Recieving data:");
+      serializeJsonPretty(doc, Serial);
+      Serial.println("");
+      String test = doc.as<String>(); //Json to String
+      Serial.println(test);
+    } 
+  }
+  
 }
