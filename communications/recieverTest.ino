@@ -23,7 +23,7 @@ void setup() {
 void loop() {
   if(HC12.available()){   
     
-    StaticJsonDocument<200> doc;
+    StaticJsonDocument<250> doc;
     DeserializationError error = deserializeJson(doc, HC12);
     if (error) {
       //Serial.println(F("NO DATA"));

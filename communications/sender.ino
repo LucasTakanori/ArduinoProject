@@ -1,5 +1,4 @@
 
-
 #include <SoftwareSerial.h>
 #include <ArduinoJson.h>
 #include "DHT.h"
@@ -107,31 +106,16 @@ void loop(){
   doc["fHPercentages2"] = fHPercentages[2];
   //Serial.println(doc["humidity"]);
 
+  serializeJson(doc, Serial);
+  serializeJson(doc, HC12);
   String test = doc.as<String>(); //Json to String
+  
+  Serial.println("\nrghdryd");
   Serial.println(test);
 
-  // Send string and and then the receiver has to it back to a JSON Object
-
-  // "receiver test"
-  StaticJsonDocument<200> parsed;
-  DeserializationError error = deserializeJson(parsed, test);
-
-  // Test if parsing succeeds.
-  if (error) {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.f_str());
-    return;
-  }
   
-
-
-  //Serial.println("pito");
-  //HC12.println(doc.);
-  HC12.println(test);
-  const float sensor = parsed["humidity"];
-  //Serial.println(sensor); 
-  //HC12.write(i);
-  delay(2000);  
+  
+  delay(10000);  
   
   
 }
