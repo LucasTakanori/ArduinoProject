@@ -32,9 +32,9 @@ void loop() {
     }else{
       Serial.println("Recieving data:");
       serializeJsonPretty(doc, Serial);
-      Serial.println("");
-      String test = doc.as<String>(); //Json to String
-      Serial.println(test);
+      // Serial.println("");
+      // String test = doc.as<String>(); //Json to String
+      // Serial.println(test);
     } 
   }
   
