@@ -1,0 +1,66 @@
+const express = require('express');
+const router = express.Router();
+
+const DatoSchema = require('./../models/dato');
+
+// get the data list which aren't deleted
+router.get('/', (req, res) => {
+    DatoSchema.find({ "deleted": false }, (err, data) => {
+        if (err) {
+            res.send({ error: err });
+            return;
+        }
+        res.send(data);
+    })
+
+});
+
+//get by id
+router.get('/:id', (req, res) => {
+    DatoSchema.findByID(req.params.id, (err, data) => {
+        if (err) {
+            res.send({ error: err });
+            return;
+        }
+        res.send(data);
+    })
+
+});
+
+router.get('/:property', (req, res) => {
+    DatoSchema.find(req.params.property, (err, data) => {
+        if (err || !data) {
+            res.send({ error: err });
+            return;
+        }
+        res.send(data);
+    });
+});
+
+
+
+//ad data to the list
+router.post('/', (req, res) => {
+    const data = req.body
+    const dato = new DatoSchema(data);
+
+    dato.save(err => {
+        if (err) {
+            res.send({ error: err, message: 'Error saving the data' });
+            return;
+        }
+        res.status(200).send({ message: 'Data added to the database successfully :)!' });
+    });
+    console.log(data);
+});
+
+//remove data from the list
+router.delete('/:id', (req, res) => {
+
+    DatoSchema.findByIdAndUpdate(req.params.id, { "deleted": true }, (err, data) => {
+        if (err) return res.send({ error: err });
+        res.send("Item deleted");
+    });
+});
+
+module.exports = router;
