@@ -27,6 +27,21 @@ router.get('/:id', (req, res) => {
 
 });
 
+router.get('/date/:start/:end', (req, res) => {
+    const startDate = new Date(req.params.start);
+    const endDate = new Date(new Date(req.params.end).getTime()+(1*24*60*60*1000)); // First number is to specify the number of days to be added
+
+    console.log(endDate);
+
+    DatoSchema.find({ "deleted": false, timeStamp: { $gte: startDate, $lte: endDate }, }, req.params.property, (err, data) => {
+        if (err) {
+            res.send({ error: err });
+            return;
+        }
+        res.send(data);
+    })
+});
+
 router.get('/prop/:property', (req, res) => {
     DatoSchema.find({ "deleted": false }, req.params.property, (err, data) => {
         if (err) {
