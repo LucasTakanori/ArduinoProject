@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 //get by id
 router.get('/:id', (req, res) => {
-    DatoSchema.findByID(req.params.id, (err, data) => {
+    DatoSchema.findById(req.params.id, (err, data) => {
         if (err) {
             res.send({ error: err });
             return;
@@ -28,13 +28,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/:property', (req, res) => {
-    DatoSchema.find(req.params.property, (err, data) => {
-        if (err || !data) {
+    DatoSchema.find({ "deleted": false }, (err, data) => {
+        if (err) {
             res.send({ error: err });
             return;
         }
         res.send(data);
-    });
+    })
 });
 
 
