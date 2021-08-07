@@ -27,8 +27,8 @@ router.get('/:id', (req, res) => {
 
 });
 
-router.get('/:property', (req, res) => {
-    DatoSchema.find({ "deleted": false }, (err, data) => {
+router.get('/prop/:property', (req, res) => {
+    DatoSchema.find({ "deleted": false }, req.params.property, (err, data) => {
         if (err) {
             res.send({ error: err });
             return;
