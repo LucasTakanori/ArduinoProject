@@ -33,7 +33,7 @@ router.get('/date/:start/:end', (req, res) => {
 
     console.log(endDate);
 
-    DatoSchema.find({ "deleted": false, timeStamp: { $gte: startDate, $lte: endDate }, }, req.params.property, (err, data) => {
+    DatoSchema.find({ "deleted": false, timeStamp: { $gte: startDate, $lte: endDate }, }, req.params.property, { sort: {timeStamp: 'asc'}}, (err, data) => {
         if (err) {
             res.send({ error: err });
             return;
