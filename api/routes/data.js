@@ -5,7 +5,7 @@ const DatoSchema = require('./../models/dato');
 
 // get the data list which aren't deleted
 router.get('/', (req, res) => {
-    DatoSchema.find({ "deleted": false }, (err, data) => {
+    DatoSchema.find({ "deleted": false }, '', { sort: { timeStamp: 'asc' } }, (err, data) => {
         if (err) {
             res.send({ error: err });
             return;
@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
 
 });
 
-router.get('/date/:start/:end', (req, res) => {
+router.get('/:start/:end', (req, res) => {
     const startDate = new Date(req.params.start);
     const endDate = new Date(new Date(req.params.end).getTime()+(1*24*60*60*1000)); // First number is to specify the number of days to be added
 

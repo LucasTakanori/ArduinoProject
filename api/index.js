@@ -1,4 +1,6 @@
 
+const path = require('path');
+
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -7,9 +9,16 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/tvshows', {useNewUrlParser: true});
 //parse JSON using express
 app.use(express.json());
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.static(__dirname + '/public'));
 
 app.use('/data', require('./routes/data'));
+
+app.get('/', (req, res) => {
+    // simple ass shit
+    res.sendFile(path.join(__dirname, 'views/index.html'));
+});
 
 // let datos = [
 //     {
