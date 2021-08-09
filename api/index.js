@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/data', require('./routes/data'));
 
 app.get('/', (req, res) => {
-    // simple ass fuck
+    // simple as fuck
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
